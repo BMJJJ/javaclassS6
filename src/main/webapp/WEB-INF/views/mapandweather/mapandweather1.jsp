@@ -89,6 +89,43 @@
 		    background-color: #A0A0A0; /* 클릭 시 배경색 */
 		    transform: translateY(0); /* 클릭 시 원래 위치 */
 		} 
+		
+	.select-wrapper {
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+  width: 120px; /* 너비 설정 */
+}
+
+.select-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%; /* 부모 요소의 너비에 맞춤 */
+  padding: 10px 30px 10px 10px; /* 패딩 조정 */
+  font-size: 14px; /* 글자 크기 조정 */
+  border: 2px solid #3cb371;
+  border-radius: 20px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.select-wrapper::after {
+  content: '\25BC';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #3cb371;
+  font-size: 12px; /* 화살표 크기 조정 */
+}
+
+.select-wrapper select:hover,
+.select-wrapper select:focus {
+  border-color: #6b8e23;
+  outline: none;
+}
   </style>
   <script>
   let selectedLocation = null;
@@ -260,7 +297,16 @@
         };
       });
     }
-  }); 
+  });
+   function addressSearch() {
+  	let address = myform.address1.value;
+  	if(address == "") {
+  		alert("검색할 지점을 선택하세요");
+  		return false;
+  	}
+  	myform.submit();
+  } 
+  
   </script>
   
 </head>
@@ -279,6 +325,15 @@
           <input type="submit" value="키워드 검색" class="pretty-button"/>
           <div id="demo"></div>
         </div>
+        <div class="select-wrapper">
+  				<select name="address" id="address1">
+   				 <option value="">지역선택</option>
+    				<c:forEach var="aVo" items="${addressVos}">
+      				<option value="${aVo.address}" <c:if test="${aVo.address == vo.address}">selected</c:if>>${aVo.address}</option>
+   			 		</c:forEach>
+  				</select>
+				</div>
+				<input type="button" value="지점선택" onclick="addressSearch()" class="pretty-button"/>
         <input type="hidden" name="selectAddress" id="selectAddress" />
         <input type="hidden" name="latitude" id="latitude" />
         <input type="hidden" name="longitude" id="longitude" />

@@ -1,5 +1,7 @@
 package com.spring.javaclassS6.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,14 @@ public class MapController {
 		public String mapandweather1(Model model,
 				@RequestParam(name="address", defaultValue = "", required = false) String address
 				) {
+		
+			KakaoAddressVO vo = new KakaoAddressVO();
+		
+			List<KakaoAddressVO> addressVos = mapandweatherService.getKakaoAddressList();
+			vo = mapandweatherService.getKakaoAddressSearch(address);
 				model.addAttribute("address", address);
+				model.addAttribute("addressVos", addressVos);
+				model.addAttribute("vo", vo);
 		return "mapandweather/mapandweather1";
 	}
 	
@@ -40,7 +49,6 @@ public class MapController {
 	public String mapPlusPost(KakaoAddressVO vo) {
 		KakaoAddressVO searchVO = mapandweatherService.getKakaoAddressSearch(vo.getAddress());
 		if(searchVO != null) return "0";
-		
 		mapandweatherService.setKakaoAddressInput(vo);
 		
 		return "1";

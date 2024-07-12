@@ -39,44 +39,19 @@
   	});
   }
     
-    function addressDelete() {
-    	let address = myform.address.value;
-    	if(address == "") {
-    		alert("삭제할 지점을 선택하세요");
-    		return false;
-    	}
-    	let ans = confirm("검색한 지점명을 MyDB에서 삭제하시겠습니까?");
-    	if(!ans) return false;
-    	
-    	$.ajax({
-    		url  : "${ctp}/study/kakao/kakaoAddressDelete",
-    		type : "post",
-    		data : {address : address},
-    		success:function(res) {
-    			if(res != "0") {
-    				alert("선택한 지점이 MyDB에 삭제 되었습니다.");
-    				location.href = "${ctp}/study/kakao/kakaoEx2";
-    			}
-    			else alert("삭제 실패~~");
-    		},
-    		error : function() {
-    			alert("전송오류!");
-    		}
-    	});
-    }
   </script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
-  <h2>KakaoDB에 저장된 키워드검색후 MyDB에 저장하기(${address})</h2>
+  <h2>마커저장(${address})</h2>
 	<hr/>
 	<form name="myform">
 	  <div>키워드검색 :
 	    <input type="text" name="address" id="address" autofocus required />
 		  <input type="submit" value="키워드검색"/>
-		  <input type="button" value="검색된지점을 MyDB에 저장" onclick="addressSave()"/>
+		  <input type="button" value="검색된지점을 MyDB에 저장" onclick="addressSave('+latlng.getLat()+','+latlng.getLng()+')"/>
 		  <div id="demo"></div>
 	  </div>
 	  <input type="hidden" name="selectAddress" id="selectAddress" />

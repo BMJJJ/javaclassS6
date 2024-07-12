@@ -1,5 +1,7 @@
 package com.spring.javaclassS6.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,10 @@ public class MapandWeatherServiceImpl implements MapandWeatherService {
 	@Override
 	public void setKakaoAddressInput(KakaoAddressVO vo) {
 		mapandweatherDAO.setKakaoAddressInput(vo);
+	}
+
+	@Override
+	public List<KakaoAddressVO> getKakaoAddressList() {
+		return mapandweatherDAO.getKakaoAddressList();
 	}
 }
