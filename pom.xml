@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.spring</groupId>
-	<artifactId>javaclassS20</artifactId>
-	<name>javaclassS20</name>
+	<artifactId>javaclassS6</artifactId>
+	<name>javaclassS6</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -215,6 +215,14 @@
 	    <version>1.5</version>
 		</dependency>
 		
+		
+		<!-- 썸네일 이미지를 위한 라이브러리(thumnailator)  -->
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+	    <groupId>net.coobird</groupId>
+	    <artifactId>thumbnailator</artifactId>
+	    <version>0.4.20</version>
+		</dependency>
 		
 		
 		      
