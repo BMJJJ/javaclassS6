@@ -70,11 +70,10 @@
   <a href="${ctp}/guest/guestList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">방명록</a>
  	<%-- <a href="${ctp}/board/fixboardList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">공지사항</a> --%>
  	<a href="http://localhost:9090/javaclassS6/board/boardList?pag=&pageSize=&part=%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">공지사항</a>
-  <a href="${ctp}/board/boardList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">자유게시판</a>
   <a href="http://localhost:9090/javaclassS6/board/boardList?pag=&pageSize=&part=%EC%9E%90%EC%9C%A0%EA%B2%8C%EC%8B%9C%ED%8C%90" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">자유게시판</a>
   <a href="${ctp}/pds/pdsList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">사진공유실</a>
   <a href="${ctp}/mapandweather/mapandweather1" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">지도와날씨</a>
-  <a href="${ctp}/mapandweather/mapPlus" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">지도와날씨</a>
+  <a href="${ctp}/mapandweather/mapPlus" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">지도추가</a>
   <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">About</a>
 </nav>
 <!-- Top menu -->

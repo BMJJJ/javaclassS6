@@ -106,13 +106,13 @@
       <h5 class="mb-3">활동 내역</h5>
       <div class="row">
         <div class="col-md-4 mb-2">
-          <p><i class="fas fa-book activity-icon"></i>방명록에 올린 글 수: <b>${guestCnt}</b> 건</p>
+          <a href="${ctp}/guest/guestList"><p><i class="fas fa-book activity-icon"></i>방명록에 올린 글 수: <b>${guestCnt}</b> 건</p>
         </div>
         <div class="col-md-4 mb-2">
-          <p><i class="fas fa-clipboard activity-icon"></i>게시판에 올린 글 수: <b>${boardCnt}</b> 건</p>
+          <a href="${ctp}/board/boardList"><p><i class="fas fa-clipboard activity-icon"></i>게시판에 올린 글 수: <b>${boardCnt}</b> 건</p></a>
         </div>
         <div class="col-md-4 mb-2">
-          <p><i class="fas fa-file-alt activity-icon"></i>자료실에 올린 글 수: <b>${pdsCnt}</b> 건</p>
+          <a href="${ctp}/pds/pdsList"><p><i class="fas fa-file-alt activity-icon"></i>자료실에 올린 글 수: <b>${pdsCnt}</b> 건</p></a>
         </div>
       </div>
     </div>
