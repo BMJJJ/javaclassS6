@@ -7,6 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pdsInput.jsp</title>
+  <script src="${ctp}/ckeditor/ckeditor.js"></script>
   <%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
   <style>
      body {

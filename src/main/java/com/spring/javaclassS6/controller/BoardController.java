@@ -226,4 +226,22 @@ public class BoardController {
 		return "board/boardSearchList";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/boardReplyDelete", method = RequestMethod.POST)
+	public String boardReplyDeletePost(int idx) {
+    int res = boardService.deleteBoardReply(idx);
+
+    return res + "";
+}
+	
+/*
+ * @ResponseBody
+ * 
+ * @RequestMapping(value = "/boardGoodCheck", method = RequestMethod.POST){
+ * public String boaradGoodCheckPost() {
+ * 
+ * }
+ */
+	
+	
 }

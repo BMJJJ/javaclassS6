@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <style>
-  a:active, a:focus, a:hover{
-    text-decoration: none;
-  }
+  /* a:active, a:focus, a:hover{
+   /*  text-decoration: none; 
+  }*/
   .small-font {
     font-size: 0.65em; 
   }
@@ -74,6 +74,7 @@
   <a href="${ctp}/pds/pdsList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">사진공유실</a>
   <a href="${ctp}/mapandweather/mapandweather1" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">지도와날씨</a>
   <a href="${ctp}/mapandweather/mapPlus" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">지도추가</a>
+  <a href="${ctp}/photoGallery/photoGalleryList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">사진 갤러리</a>
   <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">About</a>
 </nav>
 <!-- Top menu -->

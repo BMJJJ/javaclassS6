@@ -29,7 +29,7 @@
   .w3-dropdown-content .w3-bar-item:hover {
     background-color: #ddd;
   }
-    .w3-top{
+  .w3-top{
   	position : relative;
   }
 </style>
@@ -66,14 +66,18 @@
     document.getElementById("mySidebar").style.display = "none";
   }
 </script>
-<div class="all">
 <!-- Sidebar (hidden by default) -->
 <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:20%;min-width:250px;background-color:#f0f4f0" id="mySidebar">
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">Close Menu</a>
+  <a href="${ctp}/member/memberMain" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">MyPage</a>
   <a href="${ctp}/guest/guestList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">방명록</a>
-  <a href="${ctp}/board/fixboardList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">공지사항</a>
-  <a href="${ctp}/board/boardList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">자유게시판</a>
+ 	<%-- <a href="${ctp}/board/fixboardList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">공지사항</a> --%>
+ 	<a href="http://localhost:9090/javaclassS6/board/boardList?pag=&pageSize=&part=%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">공지사항</a>
+  <a href="http://localhost:9090/javaclassS6/board/boardList?pag=&pageSize=&part=%EC%9E%90%EC%9C%A0%EA%B2%8C%EC%8B%9C%ED%8C%90" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">자유게시판</a>
   <a href="${ctp}/pds/pdsList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">사진공유실</a>
+  <a href="${ctp}/mapandweather/mapandweather1" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">지도와날씨</a>
+  <a href="${ctp}/mapandweather/mapPlus" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">지도추가</a>
+  <a href="${ctp}/photoGallery/photoGalleryList" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">사진 갤러리</a>
   <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-medium">About</a>
 </nav>
 <!-- Top menu -->
@@ -113,4 +117,4 @@
     </div>
   </div>
 </div>
-</div>
+

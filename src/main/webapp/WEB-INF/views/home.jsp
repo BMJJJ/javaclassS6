@@ -8,12 +8,11 @@
 <title>산책로 - 자연과 함께하는 순간</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <style>
-body, h1, h2, h3, h4, h5, h6 {
-    font-family: "Karma", sans-serif;
+ body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Karma", sans-serif !important;
 }
 .w3-bar, h1, button {
     font-family: "Karma", sans-serif;
@@ -40,6 +39,9 @@ body, h1, h2, h3, h4, h5, h6 {
     background-color: #333;
     color: white;
     padding: 20px 0;
+}
+a {
+	color:#333 !important;
 }
 </style>
 </head>

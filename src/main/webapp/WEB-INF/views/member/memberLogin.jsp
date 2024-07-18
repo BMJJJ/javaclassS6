@@ -200,7 +200,7 @@
           <td>
             <input type="password" name="pwd" id="password" value="1234" required class="form-control" style="width: 75%;"/>
             <label style="display: inline-flex; align-items: center;">
-              <input type="checkbox" id="togglePassword" style="margin-right: 10px;"> 비밀번호 우산
+              <input type="checkbox" id="togglePassword" style="margin-right: 10px;"> 비밀번호 보이기
             </label>
           </td>
         </tr>

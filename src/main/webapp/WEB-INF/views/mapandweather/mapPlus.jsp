@@ -6,6 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <title>mapPlus.jsp(KakaoDB에 저장된 키워드검색)</title>
+   <script src="${ctp}/ckeditor/ckeditor.js"></script>
   <jsp:include page="/WEB-INF/views/include/bs4.jsp" />
   <style>
   	
@@ -51,6 +52,14 @@
 	  <div>키워드검색 :
 	    <input type="text" name="address" id="address" autofocus required />
 		  <input type="submit" value="키워드검색"/>
+		  <textarea name="content" id="CKEDITOR" rows="6" class="form-control" required></textarea>
+        <script>
+          CKEDITOR.replace("content",{
+        	  height:480,
+        	  filebrowserUploadUrl:"${ctp}/imageUpload",
+        	  uploadUrl : "${ctp}/imageUpload"
+          });
+        </script>
 		  <input type="button" value="검색된지점을 MyDB에 저장" onclick="addressSave('+latlng.getLat()+','+latlng.getLng()+')"/>
 		  <div id="demo"></div>
 	  </div>

@@ -203,5 +203,10 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<BoardVO> getBoardList(int startIndexNo, int pageSize, String part) {
 		return boardDAO.getBoardList(startIndexNo, pageSize, part);
 	}
+
+	@Override
+	public int deleteBoardReply(int idx) {
+		return boardDAO.deleteBoardReply(idx);
+	}
 	
 }

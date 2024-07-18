@@ -253,17 +253,17 @@
   }
 
    // 지도 관련 스크립트
-  $(document).ready(function() {
+   $(document).ready(function() {
     var mapContainer = document.getElementById('map'),
     mapOption = {
       center: new kakao.maps.LatLng(36.63508163115122, 127.45948750459904),
       level: 3
     };
 
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+    //var map = new kakao.maps.Map(mapContainer, mapOption);
     var ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch('${address}', placesSearchCB);
+    ps.keywordSearch('${address}', placesSearchCB); 
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
@@ -421,13 +421,13 @@
 <!-- 검색어로 검색된 지역을 출력시켜줄 스크립트 앞쪽('kakaoEx3.jsp의 스크립트')에 기술후, 그 아래 '카테고리별 장소 검색하기'스크립트 처리한다.(화면 검색후 주변처리해야하기때문..) --> 
 	<script>
 		// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-		 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 	
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
-		        center: new kakao.maps.LatLng(36.63508163115122, 127.45948750459904), // 지도의 중심좌표
+		        center: new kakao.maps.LatLng(36.635094996846895, 127.4595267180685), // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
-		    };   
+		    };  
 	
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
@@ -478,7 +478,7 @@
 		        $("#demo").html("장소명:"+place.place_name+" , 위도:"+place.y+" , 경도:"+place.x);
 		    });
 		} 
-	</script> -->
+	</script>
 	
 	<!-- 주변지역의 검색지점을 표출시켜줄 스크립트를 뒤쪽에 기술해준다.(샘플 : '카테고리별 장소 검색하기') -->
   <script>

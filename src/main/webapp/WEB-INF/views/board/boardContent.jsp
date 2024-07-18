@@ -12,7 +12,7 @@
   <%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
   <style>
     body {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: "Karma", sans-serif !important;
       background-color: #f8f9fa;
       color: #495057;
     }
@@ -80,25 +80,10 @@
     	if(ans) location.href = "boardDelete?idx=${vo.idx}";
     }
     
-    // 좋아요 처리(중복허용)
-    function goodCheck() {
-    	$.ajax({
-    		url  : "BoardGoodCheck.bo",
-    		type : "post",
-    		data : {idx : ${vo.idx}},
-    		success:function(res) {
-    			if(res != "0") location.reload();
-    		},
-    		error : function() {
-    			alert("전송오류");
-    		}
-    	});
-    }
-    
     // 좋아요 처리(중복불허)
     function goodCheck2() {
     	$.ajax({
-    		url  : "BoardGoodCheck2.bo",
+    		url  : "${ctp}/board/boardGoodCheck",
     		type : "post",
     		data : {idx : ${vo.idx}},
     		success:function(res) {
@@ -228,26 +213,27 @@
     }
     
     // 댓글 삭제하기
-    function replyDelete(idx) {
-    	let ans = confirm("선택한 댓글을 삭제하시겠습니까?");
-    	if(!ans) return false;
-    	
-    	$.ajax({
-    		url  : "BoardReplyDelete.bo",
-    		type : "post",
-    		data : {idx : idx},
-    		success:function(res) {
-    			if(res != "0") {
-    				alert("댓글이 삭제되었습니다.");
-    				location.reload();
-    			}
-    			else alert("삭제 실패~~");
-    		},
-    		error : function() {
-    			alert("전송 오류!");
-    		}
-    	});
-    }
+   function replyDelete(idx) {
+    let ans = confirm("선택한 댓글을 삭제하시겠습니까?");
+    if (!ans) return false;
+
+    $.ajax({
+        url: "${ctp}/board/boardReplyDelete",
+        type: "post",
+        data: { idx: idx },
+        success: function(res) {
+            if (res != "0") {
+                alert("댓글이 삭제되었습니다.");
+                location.reload();
+            } else {
+                alert("삭제 실패~~");
+            }
+        },
+        error: function() {
+            alert("전송 오류!");
+        }
+    });
+	}
     
     
     // 처음에는 대댓글 '닫기'버튼은 보여주지 않는다.

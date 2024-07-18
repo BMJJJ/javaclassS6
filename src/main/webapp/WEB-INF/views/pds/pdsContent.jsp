@@ -163,22 +163,66 @@
     }
   </script>
   <style>
+     body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f8f9fa;
+      color: #495057;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .table {
+      background-color: #fff; 
+      border-radius: 10px;
+      overflow: hidden;
+    }
     th {
-      background-color: #eee;
-      width: 15%;
+      background-color: #e8f5e9;
       text-align: center;
     }
-		h6 {
-		  position: fixed;
-		  right: 1rem;
-		  bottom: -50px;
-		  transition: 0.7s ease;
-		}
-   	.on {
-		  opacity: 0.8;
-		  cursor: pointer;
-		  bottom: 0;
-		}
+    .btn-nature {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+    .btn-nature:hover {
+      background-color: #45a049;
+    }
+    .pagination .page-link {
+      color: #4CAF50;
+    }
+    .pagination .page-item.active .page-link {
+      background-color: #4CAF50;
+      border-color: #4CAF50;
+    }
+    .search-form {
+      background-color: #e8f5e9;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .modal-header {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .footer {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px 0;
+      margin-top: 30px;
+    }
+    .content-img {
+      max-width: 100%;
+      height: auto;
+    }
 		
     /* 별점 스타일 설정하기 */
     #starForm fieldset {
@@ -209,7 +253,6 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/nav.jsp" />
-<jsp:include page="/WEB-INF/views/include/slide2.jsp" />
 <p><br/></p>
 <div class="container">
   <h2 class="text-center">자료 내용 상세보기</h2>
@@ -237,8 +280,6 @@
     <tr>
       <th>분류</th>
       <td>${vo.part}</td>
-      <th>접속IP</th>
-      <td>${vo.hostIp}</td>
     </tr>
     <tr>
       <th>제목</th>
@@ -330,14 +371,12 @@
 		  <c:set var="ext" value="${fn:substring(fSName, len-3, len)}"/>
 		  <c:set var="extLower" value="${fn:toLowerCase(ext)}"/>
 			<c:if test="${extLower == 'jpg' || extLower == 'gif' || extLower == 'png'}">
-        <img src="${ctp}/pds/${fSName}" width="85%" />
+        <img src="${ctp}/resources/data/pds/${fSName}" width="85%" />
       </c:if>
       <hr/>
     </c:forEach>
   </div>
   
-  <!-- 위로가기 버튼 -->
-  <h6 id="topBtn" class="text-right mr-3"><img src="${ctp}/images/arrowTop.gif" title="위로이동"/></h6>
 </div>
 <p><br/></p>
 
@@ -378,6 +417,7 @@
     </div>
   </div>
 
-<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+<!-- 위로가기 버튼 -->
+<h6 id="topBtn" class="text-right mr-3"><img src="${ctp}/images/arrowTop.gif" title="위로이동"/></h6>
 </body>
 </html>

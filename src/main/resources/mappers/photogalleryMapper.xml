@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javaclassS6.dao.PhotoGalleryDAO">
+	
+	<select id="getPhotoGalleryList" resultType="com.spring.javaclassS6.vo.PhotoGalleryVO">
+    <choose>
+        <when test="part == '전체'">
+            <choose>
+                <when test="choice == '최신순'">
+                    SELECT pg.*,
+                           (SELECT COUNT(*) FROM photoReply WHERE photoIdx = pg.idx) AS replyCnt
+                    FROM photoGallery pg
+                    ORDER BY pg.idx DESC
+                    LIMIT #{startIndexNo}, #{pageSize}
+                </when>
+                <otherwise>
+                    SELECT pg.*,
+                           (SELECT COUNT(*) FROM photoReply WHERE photoIdx = pg.idx) AS replyCnt
+                    FROM photoGallery pg
+                    ORDER BY ${choice} DESC, pg.idx DESC
+                    LIMIT #{startIndexNo}, #{pageSize}
+                </otherwise>
+            </choose>
+        </when>
+        <otherwise>
+            <choose>
+                <when test="choice == '최신순'">
+                    SELECT pg.*,
+                           (SELECT COUNT(*) FROM photoReply WHERE photoIdx = pg.idx) AS replyCnt
+                    FROM photoGallery pg
+                    WHERE pg.part = #{part}
+                    ORDER BY pg.idx DESC
+                    LIMIT #{startIndexNo}, #{pageSize}
+                </when>
+                <otherwise>
+                    SELECT pg.*,
+                           (SELECT COUNT(*) FROM photoReply WHERE photoIdx = pg.idx) AS replyCnt
+                    FROM photoGallery pg
+                    WHERE pg.part = #{part}
+                    ORDER BY ${choice} DESC, pg.idx DESC
+                    LIMIT #{startIndexNo}, #{pageSize}
+                </otherwise>
+            </choose>
+        </otherwise>
+    </choose>
+</select>
+
+
+<select id="getLastInsertedPhotoGalleryIdx" resultType="int">
+    SELECT LAST_INSERT_ID()
+</select>
+
+<!-- getPhotoGalleryById 메서드를 위한 select 문 -->
+    <select id="getPhotoGalleryById" resultType="com.spring.javaclassS6.vo.PhotoGalleryVO">
+        SELECT *
+        FROM photoGallery
+        WHERE idx = #{photoIdx}
+    </select>
+
+    <!-- getPhotoGalleryReplies 메서드를 위한 select 문 -->
+    <select id="getPhotoGalleryReplies" resultType="com.spring.javaclassS6.vo.PhotoGalleryVO">
+        SELECT *
+        FROM photoReply
+        WHERE photoIdx = #{photoIdx}
+        ORDER BY idx DESC
+    </select>
+
+	<!-- 이미 좋아요를 눌렀는지 확인 -->
+    <select id="checkIfAlreadyLiked" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM photoGallery
+        WHERE idx = #{idx} AND sMid = #{sMid}
+    </select>
+
+	<insert id="setPhotoGalleryInput">
+	  insert into photoGallery values (default,#{vo.mid},#{vo.nickName},#{vo.title},#{vo.content},default,default,#{vo.thumbnail},default,#{vo.part},#{vo.photoCount});
+	</insert>
+	
+	 <!-- 좋아요 추가 -->
+    <insert id="addGood">
+        INSERT INTO photoGallery (idx, sMid)
+        VALUES (#{idx}, #{sMid})
+    </insert>
+	
+	 <!-- incrementReadCount 메서드를 위한 update 문 -->
+    <update id="incrementReadCount">
+        UPDATE photoGallery
+        SET readNum = readNum + 1
+        WHERE idx = #{photoIdx}
+    </update>
+	
+	
+	
+		
+		<!-- 좋아요 취소 -->
+    <delete id="cancelGood">
+        DELETE FROM photoGallery
+        WHERE idx = #{idx} AND sMid = #{sMid}
+    </delete>
+		
+	
+</mapper>

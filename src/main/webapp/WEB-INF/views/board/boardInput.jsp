@@ -11,7 +11,7 @@
   <%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
   <style>
      body {
-      font-family: 'Noto Sans KR', sans-serif;
+     font-family: "Karma", sans-serif !important;
       background-color: #f0f4f0;
       color: #333;
     }

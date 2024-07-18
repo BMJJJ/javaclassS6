@@ -9,13 +9,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Page</title>
   <%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"> -->
   <style>
     body {
       background-color: #f0f4f0;
       color: #343a40;
-      font-family: 'Roboto', sans-serif;
     }
     .container {
       background-color: #ffffff;
@@ -106,7 +105,7 @@
       <h5 class="mb-3">활동 내역</h5>
       <div class="row">
         <div class="col-md-4 mb-2">
-          <a href="${ctp}/guest/guestList"><p><i class="fas fa-book activity-icon"></i>방명록에 올린 글 수: <b>${guestCnt}</b> 건</p>
+          <a href="${ctp}/guest/guestList"><p><i class="fas fa-book activity-icon"></i>방명록에 올린 글 수: <b>${guestCnt}</b> 건</p></a>
         </div>
         <div class="col-md-4 mb-2">
           <a href="${ctp}/board/boardList"><p><i class="fas fa-clipboard activity-icon"></i>게시판에 올린 글 수: <b>${boardCnt}</b> 건</p></a>

@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: "Karma", sans-serif !important;
       /* background-color: #f0f4f0; */
       color: #333;
     }
@@ -78,7 +78,7 @@
 <jsp:include page="/WEB-INF/views/include/nav2.jsp" />
 <body>
 <div class="container mt-5">
-  <h2 class="text-center mb-4"><i>Melting</i></h2>
+  <h2 class="text-center mb-4"><i>Serenity</i></h2>
   <h4 class="text-center mb-5">여러분의 소중한 발자취를 남겨주세요.</h4>
   
   <div class="d-flex justify-content-between align-items-center mb-4">
