@@ -56,16 +56,13 @@ a {
     <h1><b>산책로에서 발견한 아름다운 순간들</b></h1>
     <p>자연과 함께하는 평화로운 시간, 그 순간을 공유합니다.</p>
   </div>
-
+  
+  
+  
+  
+  
   <!-- Photo Grid -->
   <div class="w3-row-padding">
-    <div class="w3-quarter">
-      <img src="${ctp}/images/5.jpg" alt="숲길" class="nature-image">
-      <div class="image-caption">
-        <h3>고요한 숲길</h3>
-        <p>아침 안개 속 숲길, 새로운 하루의 시작을 알립니다.</p>
-      </div>
-    </div>
     <div class="w3-quarter">
       <img src="${ctp}/images/2.jpg" alt="꽃길" class="nature-image">
       <div class="image-caption">
@@ -74,35 +71,28 @@ a {
       </div>
     </div>
     <div class="w3-quarter">
-      <img src="${ctp}/images/122.jpg" alt="호수" class="nature-image">
+      <img src="${ctp}/images/5.jpg" alt="숲길" class="nature-image">
       <div class="image-caption">
-        <h3>호수의 잔잔함</h3>
-        <p>잔잔한 호수에 비친 하늘, 마음의 평화를 찾아보세요.</p>
+        <h3>여름의 고요함</h3>
+        <p>아침 안개 속 숲길, 여름의 싱그러움을 만끽하세요.</p>
       </div>
     </div>
     <div class="w3-quarter">
-      <img src="${ctp}/images/4.jpg" alt="단풍길" class="nature-image">
+      <img src="${ctp}/images/136.jpg" alt="단풍길" class="nature-image">
       <div class="image-caption">
         <h3>가을의 정취</h3>
         <p>붉게 물든 단풍길, 계절의 변화를 느껴보세요.</p>
       </div>
     </div>
-  </div>
-
-  <!-- Pagination -->
-  <div class="w3-center w3-padding-32">
-    <div class="w3-bar">
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">1</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+    <div class="w3-quarter">
+      <img src="${ctp}/images/135.jpg" alt="겨울" class="nature-image">
+      <div class="image-caption">
+        <h3>겨울의 잔잔함</h3>
+        <p>소복이 쌓인 눈, 겨울의 평화를 찾아보세요.</p>
+      </div>
     </div>
   </div>
-
-  <hr>
-
+  
   <!-- About Section -->
   <div class="w3-container w3-padding-32 w3-center">  
     <h2 class="w3-wide">산책로 이야기</h2>
@@ -112,9 +102,31 @@ a {
     때로는 고요히 명상을 하고, 때로는 활기차게 운동을 하며, 우리는 이 길에서 많은 것을 배우고 느낍니다. 
     여러분도 이 특별한 여정에 함께하시길 바랍니다.</p>
   </div>
+  
+  <div style="display: flex; gap: 20px;">
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/fj8ReY0HxWc?si=SeuAYvqjKj2A0Iie" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  	<iframe width="560" height="315" src="https://www.youtube.com/embed/tOI-csUHoP8?si=sSE6fNEe0pAC13UO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
 
-  <jsp:include page="/WEB-INF/views/include/slide2.jsp" />
+   <!-- Pagination
+  <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">1</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+    </div>
+  </div> -->
 
+  <hr>
+
+  
+
+  <%-- <jsp:include page="/WEB-INF/views/include/slide2.jsp" /> --%>
+
+	
 	<hr/>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </div>

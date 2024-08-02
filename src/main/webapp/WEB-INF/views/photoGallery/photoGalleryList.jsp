@@ -7,8 +7,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>포토 갤러리</title>
-  <jsp:include page="/WEB-INF/views/include/bs4.jsp" />
-<script src="https://kit.fontawesome.com/fa3667321f.js" crossorigin="anonymous"></script>
+  <%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
+	<script src="https://kit.fontawesome.com/fa3667321f.js" crossorigin="anonymous"></script>
   <style>
     body {
     	font-family: "Karma", sans-serif !important;
@@ -35,8 +35,8 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
     .card-body {
-  padding: 0;
-  position: relative;
+		  padding: 0;
+		  position: relative;
 		}
 		.multiple-indicator {
 		  position: absolute;
@@ -68,7 +68,7 @@
       font-size: 0.9rem;
     }
     .btn-custom {
-     background-color: #3cb371; 
+     background-color: #A98467; 
      color: white;
      border: none;
      padding: 0.5rem 1rem 0.1rem;
@@ -80,7 +80,8 @@
      line-height: 1.5; /* 버튼 높이와 일치하는 줄 높이 설정 */
 		}
     .btn-custom:hover {
-      background-color: #6b8e23;
+      background-color: #6C584C;
+      color: white;
     }
     #list-wrap {
       display: grid;
@@ -126,9 +127,7 @@
   		if(documentHeight < (nowHeight + (documentHeight*0.1))) {
   			console.log("다음페이지 가져오기");
   			curPage++;
-  			//getList(curPage);
   			$.ajax({
-	    		/* url  : "PhotoGalleryPaging.ptg", */
 	    		url  : "${ctp}/photoGallery/photoGalleryPaging",
 	    		type : "post",
 	    		data : {pag : curPage},
@@ -144,7 +143,6 @@
   // 리스트 불러오기 함수(ajax처리)
   function getList(curPage) {
   	$.ajax({
-  		/* url  : "PhotoGallery.ptg", */
   		url  : "${ctp}/photoGallery/photoGalleryList",
   		type : "post",
   		data : {pag : curPage},
@@ -185,10 +183,8 @@
         </div>
       </div>
       <div class="col-md-4 text-right">
-      	<c:if test="${sMid == 'admin'}">
         	<button onclick="location.href='photoGalleryInput';" class="btn btn-custom">사진올리기</button>
-        </c:if>
-        <button onclick="location.href='PhotoGallerySingle.ptg';" class="btn btn-custom ml-2">한장씩보기</button>
+        <button onclick="location.href='photoGallerySingle';" class="btn btn-custom ml-2">한장씩보기</button>
       </div>
     </div>
   </div>
@@ -209,7 +205,7 @@
       <div class="card-footer">
         <div class="row text-center">
           <div class="col"><i class="fas fa-comments"></i> ${vo.replyCnt}</div>
-          <div class="col"><i class="fas fa-heart"></i> ${vo.good}</div>
+          <div class="col"><i class="fas fa-moon"></i> ${vo.good}</div>
           <div class="col"><i class="far fa-eye"></i> ${vo.readNum}</div>
           <div class="col"><i class="fas fa-images"></i> ${vo.photoCount}</div>
         </div>

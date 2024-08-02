@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -14,35 +13,32 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * Handles requests for the application home page.
- */
+import com.spring.javaclassS6.service.HomeService;
+import com.spring.javaclassS6.vo.WebChattingVO;
+
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	@Autowired
+	HomeService homeService;
+	
 	@RequestMapping(value = {"/","/h","/main","/index"}, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String formattedDate = sdf.format(date);
 		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+		model.addAttribute("serverTime", formattedDate);
 		
 		return "home";
 	}
@@ -100,6 +96,24 @@ public class HomeController {
 		downFile.delete();
 	}
 	
+//채팅창 띄우기
+	@RequestMapping(value = "/webSocket/webSocket", method = RequestMethod.GET)
+	public String webSocketGet() {
+   return "webSocket/webSocket";
+	}
+	
+	// 채팅메세지 DB에 저장하기
+	@ResponseBody
+	@RequestMapping(value = "/webSocket/msgInput", method = RequestMethod.POST)
+	public String msgInputPost(WebChattingVO vo) {
+		return homeService.setMsgInput(vo) + "";
+	}
+	
+	// 1대1 채팅폼
+	@RequestMapping(value = "/webSocket/endPoint", method = RequestMethod.GET)
+	public String endPointGet() {
+		return "webSocket/endPoint";
+	}
+	
 }
-
 	

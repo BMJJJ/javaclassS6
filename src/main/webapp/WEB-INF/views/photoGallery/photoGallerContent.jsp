@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>photoGalleryContent.jsp</title>
-  <jsp:include page="/WEB-INF/views/include/bs4.jsp" />
+	<%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
   <style>
     * {box-sizing: border-box;}
     body {
@@ -92,7 +92,7 @@
     }
 
     .active, .dot:hover {
-      background-color: #3cb371;
+      background-color: #212121;
     }
 
     .fade {
@@ -106,7 +106,7 @@
     }
 
     .btn {
-      background-color: #3cb371;
+      background-color: #34495e;
       color: white;
       border: none;
       padding: 0.5rem 1rem 0.1rem;
@@ -115,7 +115,8 @@
     }
 
     .btn:hover {
-      background-color: #6b8e23;
+      background-color: #2c3e50;
+      color: white;
     }
 
     /* 모달 스타일 */
@@ -166,71 +167,94 @@
       }
     }
     .instagram-comments {
-  max-height: 400px;
-  overflow-y: auto;
-  margin-bottom: 20px;
-}
-
-.comment {
-  margin-bottom: 15px;
-  font-size: 14px;
-}
-
-.comment strong {
-  font-weight: 600;
-  margin-right: 5px;
-}
-
-.comment-actions {
-  font-size: 12px;
-  color: #8e8e8e;
-  margin-top: 5px;
-}
-
-.delete-comment {
-  color: #ed4956;
-  margin-left: 10px;
-}
-
-.comment-input {
-  border-top: 1px solid #dbdbdb;
-  padding-top: 15px;
-}
-
-.comment-input form {
-  display: flex;
-}
-
-.comment-input textarea {
-  flex-grow: 1;
-  border: none;
-  resize: none;
-  height: 18px;
-  max-height: 80px;
-  padding: 0;
-  font-size: 14px;
-}
-
-.comment-input textarea:focus {
-  outline: none;
-}
-
-.post-button {
-  background: none;
-  border: none;
-  color: #0095f6;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.post-button:disabled {
-  opacity: 0.3;
-}
-
-.modal-content {
-  max-width: 500px;
-  width: 90%;
-}
+		  max-height: 400px;
+		  overflow-y: auto;
+		  margin-bottom: 20px;
+		}
+		
+		.comment {
+		  margin-bottom: 15px;
+		  font-size: 14px;
+		}
+		
+		.comment strong {
+		  font-weight: 600;
+		  margin-right: 5px;
+		}
+		
+		.comment-actions {
+		  font-size: 12px;
+		  color: #8e8e8e;
+		  margin-top: 5px;
+		}
+		
+		.delete-comment {
+		  color: #ed4956;
+		  margin-left: 10px;
+		}
+		
+		.comment-input {
+		  border-top: 1px solid #dbdbdb;
+		  padding-top: 15px;
+		}
+		
+		.comment-input form {
+		  display: flex;
+		}
+		
+		.comment-input textarea {
+		  flex-grow: 1;
+		  border: none;
+		  resize: none;
+		  height: 18px;
+		  max-height: 80px;
+		  padding: 0;
+		  font-size: 14px;
+		}
+		
+		.comment-input textarea:focus {
+		  outline: none;
+		}
+		
+		.post-button {
+		  background: none;
+		  border: none;
+		  color: #0095f6;
+		  font-weight: 600;
+		  cursor: pointer;
+		}
+		
+		.post-button:disabled {
+		  opacity: 0.3;
+		}
+		
+		.modal-content {
+		  max-width: 500px;
+		  width: 90%;
+		}
+		.instagram-caption {
+		  padding: 12px 16px;
+		  background-color: #fff;
+		  border-bottom: 1px solid #efefef;
+		}
+		
+		.caption-text {
+		  margin-bottom: 5px;
+		  font-size: 14px;
+		  line-height: 1.4;
+		}
+		
+		.username {
+		  font-weight: 600;
+		  margin-right: 5px;
+		}
+		
+		.post-date {
+		  font-size: 12px;
+		  color: #8e8e8e;
+		  margin-top: 5px;
+		}
+		
   </style>    
   <script>
     'use strict';
@@ -262,34 +286,96 @@
       $("#replyInput").toggle();
     }
     
+    function photoDelete() {
+			let ans = confirm("사진을 삭제 하시겠습니까?");
+    	if(ans) location.href = "photoDelete?idx=${vo.idx}";	
+		}
+    
     // 댓글달기
-    function replyCheck() {
-      let content = $("#content").val();
-      if(content.trim() == "") {
+   function replyCheck() {
+    let content = $("#content").val();
+    if(content.trim() == "") {
         alert("댓글을 입력하세요");
+        $("#content").focus();
         return false;
-      }
-      let query = {
-        mid       : '${sMid}',
-        photoIdx  : '${vo.idx}',
-        content   : content
-      }
-      
-      $.ajax({
-        url  : "${ctp}/photogallery/photoGalleryReplyInput",
+    }
+    let openSw = $('input[name="openSw"]:checked').val();
+    let query = {
+        photoIdx    : ${vo.idx},
+        mid         : '${sMid}',
+        content     : content,
+        openSw      : openSw
+    }
+  
+    $.ajax({
+        url  : "${ctp}/photoGallery/photoGalleryReplyInput",
         type : "post",
         data : query,
         success:function(res) {
-          if(res != "0") {
-            alert("댓글이 입력되었습니다.");
-            location.reload();
-          }
-          else alert("댓글 입력 실패~~");
-        },
-        error : function() {
-          alert("전송 오류!");
-        }
-      });
+            if(res != "0") {
+            	alert("댓글이 입력되었습니다.");
+                // 현재 날짜를 YYYY-MM-DD 형식으로 가져오기
+                 let currentDate = new Date().toISOString().split('T')[0]; 
+                
+                // 새 댓글을 화면에 추가
+                let newComment = '<div class="comment">' +
+                    '<strong>' + '${sMid}' + '</strong>' +
+                    '<span>' + content + '</span>' +
+                    '<div class="comment-actions">' +
+                    '<span class="comment-date">' + currentDate + '</span>' +
+                    '<a href="javascript:replyDelete(' + res + ')" class="delete-comment">삭제</a>' +
+                    '</div>' +
+                    '</div>';
+                
+                $("#replyList").prepend(newComment);
+                
+                // 입력 필드 초기화
+                $("#content").val('');
+                
+                // 댓글 수 업데이트
+                let currentCount = parseInt($("h3").text().match(/\d+/)[0]);
+                $("h3").text("댓글 " + (currentCount + 1) + "개");
+            }
+            else alert("댓글 입력 실패~~");
+        	},
+        	error : function() {
+            alert("전송 오류!");
+        	}
+    	});
+		}
+    
+    function replyCheckRe(idx, re_step, re_order) {
+    	let content = $("#contentRe"+idx).val();
+    	if(content.trim() == "") {
+    		alert("답변글을 입력하세요");
+    		$("#contentRe"+idx).focus();
+    		return false;
+    	}
+    	let openSw = $('input[name="openSw"]:checked').val();
+    	let query = {
+    			photoIdx : ${vo.idx},
+    			re_step : re_step,
+    			re_order : re_order,
+    			mid      : '${sMid}',
+    			content  : content,
+    			openSw 		: openSw
+    	}
+    	
+    	$.ajax({
+    		url  : "${ctp}/photoGallery/photoGalleryReplyInputRe",
+    		type : "post",
+    		data : query,
+    		success:function(res) {
+    			if(res != "0") {
+    				alert("답변글이 입력되었습니다.");
+    				location.reload();
+    			}
+    			else alert("답변글 입력 실패~~");
+    		},
+    		error : function() {
+    			alert("전송오류!");
+    		}
+    	});
     }
     
     // 댓글 삭제하기
@@ -298,7 +384,7 @@
       if(!ans) return false;
       
       $.ajax({
-        url  : "${ctp}/photogallery/photoGalleryReplyDelete",
+        url  : "${ctp}/photoGallery/photoGalleryReplyDelete",
         type : "post",
         data : {idx : idx},
         success:function(res) {
@@ -314,30 +400,29 @@
       });
     }
     
- // 좋아요 처리 및 취소
+    //좋아요처리
     function goodCheck() {
-      $.ajax({
-        url  : "${ctp}/photogallery/photoGalleryGoodCheck",
-        type : "post",
-        data : {idx : ${vo.idx}},
-        /* data : {idx : idx}, */
-        success:function(res) {
-          if(res == "1") {
-            alert("좋아요를 눌렀습니다.");
-            location.reload();
-          }
-          else if(res == "2") {
-            alert("좋아요를 취소했습니다.");
-            location.reload();
-          }
-          else if(res == "0") {
-            alert("오류가 발생했습니다.");
-          }
-        },
-        error : function() {
-          alert("전송오류");
-        }
-      });
+        $.ajax({
+            url  : "${ctp}/photoGallery/photoGalleryGoodCheck",
+            type : "post",
+            data : {idx : ${vo.idx}},
+            success:function(res) {
+                if(res == "1") {
+                    alert("좋아요를 눌렀습니다.");
+                    location.reload();
+                }
+                else if(res == "2") {
+                    alert("좋아요를 취소했습니다.");
+                    location.reload();
+                }
+                else {
+                    alert("오류가 발생했습니다.");
+                }
+            },
+            error : function() {
+                alert("전송오류");
+            }
+        });
     }
     
     // 모달 열기
@@ -367,8 +452,9 @@
       ${vo.mid} | ${fn:substring(vo.PDate,0,16)} 
     </div>
     <div class="col text-right">
+    	<input type="button" value="삭제" onclick="photoDelete()" class="btn btn-outline-danger text-right" />
       <i class="fa-regular fa-pen-to-square" title="댓글수"></i> ${vo.replyCnt} &nbsp;
-      <i class="fa-regular fa-face-grin-hearts" title="좋아요"></i> ${vo.good} &nbsp;
+      <i class="fa-regular far fa-moon" title="좋아요"></i> ${vo.good} &nbsp;
       <i class="fa-regular fa-eye" title="조회수"></i> ${vo.readNum} &nbsp;
       <i class="fa-solid fa-layer-group" title="사진수"></i> ${vo.photoCount}
     </div>
@@ -394,75 +480,54 @@
       <span class="dot" onclick="currentSlide(${i})"></span> 
     </c:forEach>
   </div>
-
+	<div class="instagram-caption">
+	  <p class="caption-text">
+	    <span class="username">${vo.nickName}</span> ${vo.expl}
+	  </p>
+	</div>
+	
   <div class="row mt-4">
     <div class="col">
-      <button onclick="location.href='${ctp}/photoGallery/photoGalleryList';" class="btn">목록보기</button>
+      <button onclick="location.href='${ctp}/photoGallery/photoGalleryList';" class="btn">돌아가기</button>
       <button onclick="openModal()" class="btn">댓글보기</button>
     </div>
     <div class="col text-right" style="font-size:22px">
-      <a href="javascript:openModal()"><i class="fa-regular fa-pen-to-square" title="댓글쓰기"></i></a> ${vo.replyCnt} &nbsp;
-      <a href="javascript:goodCheck()"><i class="fa-regular fa-face-grin-hearts text-danger" title="좋아요 선택"></i></a> ${vo.good}
-    </div>
+		  <a href="javascript:openModal()"><i class="fa-regular fa-pen-to-square" title="댓글쓰기"></i></a> ${vo.replyCnt} &nbsp;
+		  <a href="javascript:goodCheck()">
+		    <i class="fa-<c:choose><c:when test="${isLiked}">solid</c:when><c:otherwise>regular</c:otherwise></c:choose> fa-moon text-warning" title="좋아요 선택"></i>
+		  </a> ${vo.good}
+		</div>
   </div>
 
-  <!-- 댓글 모달 부분만 수정합니다 -->
-<div id="replyModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h3>댓글 ${vo.replyCnt}개</h3>
-    
-    <div id="replyList" class="instagram-comments">
-      <c:forEach var="replyVo" items="${replyVos}" varStatus="st">
-        <div class="comment">
-          <strong>${replyVo.mid}</strong>
-          <span>${fn:replace(replyVo.content,newLine,"<br/>")}</span>
-          <div class="comment-actions">
-            <span class="comment-date">${fn:substring(replyVo.prDate, 0, 10)}</span>
-            <c:if test="${sMid == replyVo.mid || sLevel == 0}">
-              <a href="javascript:replyDelete(${replyVo.replyIdx})" class="delete-comment">삭제</a>
-            </c:if>
-          </div>
-        </div>
-      </c:forEach>
-    </div>
-
-    <!-- 댓글 입력창 -->
-    <div id="replyInput" class="comment-input">
-      <form name="replyForm" onsubmit="return false;">
-        <textarea name="content" id="content" placeholder="댓글 달기..."></textarea>
-        <button type="button" onclick="replyCheck()" class="post-button">게시</button>
-      </form>
-    </div>
-  </div>
+	<div id="replyModal" class="modal">
+	  <div class="modal-content">	
+	    <span class="close" onclick="closeModal()">&times;</span>
+	    <h3>댓글 ${vo.replyCnt}개</h3>
+	    
+	    <div id="replyList" class="instagram-comments">
+	      <c:forEach var="replyVo" items="${replyVos}" varStatus="st">
+	        <div class="comment">
+	          <strong>${replyVo.mid}</strong>
+	          <span>${fn:replace(replyVo.content,newLine,"<br/>")}</span>
+	          <div class="comment-actions">
+	            <span class="comment-date">${fn:substring(replyVo.prDate, 0, 10)}</span>
+	            <c:if test="${sMid == replyVo.mid || sLevel == 0}">
+	              <a href="javascript:replyDelete(${replyVo.idx})" class="delete-comment">삭제</a>
+	            </c:if>
+	          </div>
+	        </div>
+	      </c:forEach>
+	    </div>
+    	<!-- 댓글 입력창 -->
+    	<div id="replyInput" class="comment-input">
+      	<form name="replyForm" onsubmit="return false;">
+        	<textarea name="content" id="content" placeholder="댓글 달기..."></textarea>
+        	<button type="button" onclick="replyCheck()" class="post-button">게시</button>
+      	</form>
+    	</div>
+  	</div>
+	</div>
 </div>
-
-      <div id="replyList">
-        <!-- 댓글 리스트 보여주기 -->
-        <table class="table table-hover">
-          <thead>
-            <tr class="table-secondary">
-              <th>작성자</th>
-              <th>댓글내용</th>
-              <th>댓글일자</th>
-            </tr>
-          </thead>
-          <tbody>
-            <c:forEach var="replyVo" items="${replyVos}" varStatus="st">
-              <tr>
-                <td>${replyVo.mid}
-                  <c:if test="${sMid == replyVo.mid || sLevel == 0}">
-                    (<a href="javascript:replyDelete(${replyVo.replyIdx})" title="댓글삭제">x</a>)
-                  </c:if>
-                </td>
-                <td class="text-left">${fn:replace(replyVo.content,newLine,"<br/>")}</td>
-                <td>${fn:substring(replyVo.prDate, 0, 10)}</td>
-              </tr>
-            </c:forEach>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
 <script>
 let slideIndex = 1;

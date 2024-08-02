@@ -10,6 +10,7 @@ public class PhotoGalleryVO {
 	private String nickName;
 	private String title;
 	private String content;
+	private String expl;
 	private int readNum;
 	private String pDate;
 	private String thumbnail;

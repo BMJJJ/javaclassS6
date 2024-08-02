@@ -23,19 +23,11 @@ insert into board2 values (default,'admin','관리맨','게시판 서비스를 �
 insert into board2 values (default,'admin','관리맨','게시판 서비스를 시작합니다.','즐거운 게시판생활이 되세요.',default,'192.168.50.69',default,default,default,default,'자유게시판');
 insert into board2 values (default,'admin','관리맨','게시판 서비스를 시작합니다.','즐거운 게시판생활이 되세요.',default,'192.168.50.69',default,default,default,default,'자유게시판');
 
+update board2 set complaint = 'OK' where idx = 8;
 
-CREATE TABLE notice (
-    idx INT NOT NULL AUTO_INCREMENT,
-    mid VARCHAR(20) NOT NULL,
-    nickName VARCHAR(20) NOT NULL,
-    title VARCHAR(100) NOT NULL,
-    content VARCHAR(500) NOT NULL,
-    readNum INT DEFAULT 0,
-    wDate DATETIME DEFAULT NOW(),
-    PRIMARY KEY (idx),
-    FOREIGN KEY (mid) REFERENCES member(mid) ON DELETE CASCADE
-);
-drop table notice;
+select * from board2 where complaint='OK' order by idx desc;
+
+select count(*) from board2 where complaint='OK' order by idx desc;
 
 create table boardReply2 (
   idx       int not null auto_increment,	/* 댓글 고유번호 */
@@ -53,5 +45,15 @@ create table boardReply2 (
   on update cascade
   on delete restrict
 );
+
+create table boardGood(
+	idx int not null auto_increment,
+	midIdx   varchar(20) not null,				
+	boardIdx int not null,						
+	primary key(idx),
+	foreign key(boardIdx) references board2(idx),
+	foreign key(midIdx) references member(mid)
+);
+drop table boardGood;
 
 drop table boardReply2;

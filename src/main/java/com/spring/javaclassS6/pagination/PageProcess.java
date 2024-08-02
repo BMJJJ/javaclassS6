@@ -3,7 +3,9 @@ package com.spring.javaclassS6.pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.javaclassS6.dao.AdminDAO;
 import com.spring.javaclassS6.dao.BoardDAO;
+import com.spring.javaclassS6.dao.NationalDAO;
 import com.spring.javaclassS6.dao.PdsDAO;
 import com.spring.javaclassS6.vo.PageVO;
 
@@ -15,6 +17,9 @@ public class PageProcess {
 	
 	@Autowired
 	PdsDAO pdsDAO;
+	
+	@Autowired
+	AdminDAO adminDAO;
 	
 	public PageVO totRecCnt(int pag, int pageSize, String section, String part, String searchString) {
 		PageVO pageVO = new PageVO();
@@ -31,6 +36,7 @@ public class PageProcess {
 				totRecCnt = boardDAO.totRecCntSearch(search, searchString);
 			}
 		}
+		else if(section.equals("complaint")) totRecCnt = adminDAO.totRecCnt();
 		else if(section.equals("pds")) totRecCnt = pdsDAO.totRecCnt(part);
 		
 		int totPage = (totRecCnt % pageSize) == 0 ? (totRecCnt / pageSize) : (totRecCnt / pageSize) + 1;
@@ -56,6 +62,7 @@ public class PageProcess {
 				
 		return pageVO;
 	}
+
 	
 	
 }

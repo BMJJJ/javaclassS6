@@ -42,5 +42,14 @@ public interface BoardService {
 
 	public int deleteBoardReply(int idx);
 
+	public String toggleGood(int idx, String mid);
+
+	public boolean isLikedMid(int idx, String sMid);
+
+	public int setComplaint(int idx);
+
+	public int setRboardComplaintInput(int idx);
+
+
 
 }

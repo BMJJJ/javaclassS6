@@ -27,32 +27,38 @@
       color: #2c3e50;
     }
     .table {
-      background-color: #fff;
+      /* background-color: #fff; */
       border-radius: 10px;
       overflow: hidden;
     }
     th {
-      background-color: #7cb342;
+      /* background-color: #7cb342; */
+      background-color: #A98467;
       color: white;
       text-align: center;
     }
     .btn-nature {
-      background-color: #4caf50;
+      background-color: #A98467;
       color: white;
       border: none;
     }
-    .btn-nature:hover {
+    /* .btn-nature:hover {
       background-color: #45a049;
-    }
+    } */
     .pagination a {
-      color: #4caf50;
+      color: #A98467;
     }
     .guest-message {
-      background-color: #e8f5e9;
-      border-left: 5px solid #4caf50;
+      background-color: #F8F2ED;
+      /* background-color: #A98467; */
+      border-left: 5px solid #A98467;
       margin-bottom: 20px;
       padding: 15px;
       border-radius: 5px;
+    }
+    .page-item.active .page-link{
+    	background-color: #A98467;
+    	border-color: none;
     }
     .footer {
       background-color: #2c3e50;

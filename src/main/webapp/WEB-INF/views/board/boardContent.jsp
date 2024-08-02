@@ -80,56 +80,28 @@
     	if(ans) location.href = "boardDelete?idx=${vo.idx}";
     }
     
-    // 좋아요 처리(중복불허)
-    function goodCheck2() {
-    	$.ajax({
-    		url  : "${ctp}/board/boardGoodCheck",
-    		type : "post",
-    		data : {idx : ${vo.idx}},
-    		success:function(res) {
-    			if(res != "0") location.reload();
-    			else alert("이미 좋아요 버튼을 클릭하셨습니다.");
-    		},
-    		error : function() {
-    			alert("전송오류");
-    		}
-    	});
-    }
-    
-    // 좋아요(따봉)수 증가 처리(중복허용)
-    function goodCheckPlus() {
-    	$.ajax({
-    		url  : "BoardGoodCheckPlusMinus.bo",
-    		type : "post",
-    		data : {
-    			idx : ${vo.idx},
-    			goodCnt : +1
-    		},
-    		success:function(res) {
-    			location.reload();
-    		},
-    		error : function() {
-    			alert("전송오류");
-    		}
-    	});
-    }
-    
-    // 좋아요(따봉)수 감소 처리(중복허용)
-    function goodCheckMinus() {
-    	$.ajax({
-    		url  : "BoardGoodCheckPlusMinus.bo",
-    		type : "post",
-    		data : {
-    			idx : ${vo.idx},
-    			goodCnt : -1
-    		},
-    		success:function(res) {
-    			if(res != "0") location.reload();
-    		},
-    		error : function() {
-    			alert("전송오류");
-    		}
-    	});
+    function goodCheck() {
+        $.ajax({
+            url  : "${ctp}/board/boardGoodCheck",
+            type : "post",
+            data : {idx : ${vo.idx}},
+            success:function(res) {
+                if(res == "1") {
+                    alert("좋아요를 눌렀습니다.");
+                    location.reload();
+                }
+                else if(res == "2") {
+                    alert("좋아요를 취소했습니다.");
+                    location.reload();
+                }
+                else {
+                    alert("오류가 발생했습니다.");
+                }
+            },
+            error : function() {
+                alert("전송오류");
+            }
+        });
     }
     
     // 신고시 '기타'항목 선택시에 textarea 보여주기
@@ -161,7 +133,7 @@
     	}
     	
     	$.ajax({
-    		url  : "boardComplaintInput.ad",
+    		url  : "${ctp}/board/boardComplaintInput",
     		type : "post",
     		data : query,
     		success:function(res) {
@@ -313,10 +285,10 @@
     <tr>
       <th>글제목</th>
       <td colspan="3">
-        ${vo.title} (<a href="javascript:goodCheck()">❤</a> : ${vo.good}) /
-        <a href="javascript:goodCheckPlus()">👍</a> &nbsp;
-        <a href="javascript:goodCheckMinus()">👎</a> /
-        (<a href="javascript:goodCheck2()"><font color="blue" size="5">♥</font></a> : ${vo.good})
+        ${vo.title}/
+        <a href="javascript:goodCheck()">
+		    	<i class="fa-<c:choose><c:when test="${isLiked}">solid</c:when><c:otherwise>regular</c:otherwise></c:choose> fa-moon text-warning" title="좋아요 선택"></i>
+		  	</a> ${vo.good}
       </td>
     </tr>
     <tr>
@@ -332,15 +304,15 @@
 	        </div>
 	        <c:if test="${sNickName == vo.nickName || sLevel == 0}">
 		        <div class="col text-right">
-	        		<c:if test="${report == 'OK'}"><font color='red'><b>현재 이글은 신고중입니다.</b></font></c:if>
+	        		<c:if test="${complaint == 'OK'}"><font color='red'><b>현재 이글은 신고중입니다.</b></font></c:if>
 			        <input type="button" value="수정" onclick="location.href='boardUpdate?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}';" class="btn btn-outline-primary" />
 			        <input type="button" value="삭제" onclick="boardDelete()" class="btn btn-outline-danger text-right" />
 		        </div>
 	        </c:if>
 	        <c:if test="${sNickName != vo.nickName}">
 		        <div class="col text-right">
-		          <c:if test="${report == 'OK'}"><font color='red'><b>현재 이글은 신고중입니다.</b></font></c:if>
-			        <c:if test="${report != 'OK'}"><input type="button" value="신고하기" data-toggle="modal" data-target="#myModal" class="btn btn-danger text-right" /></c:if>
+		          <c:if test="${vo.complaint == 'OK'}"><font color='red'><b>현재 이글은 신고중입니다.</b></font></c:if>
+			        <c:if test="${vo.complaint != 'OK'}"><input type="button" value="신고하기" data-toggle="modal" data-target="#myModal" class="btn btn-danger text-right" /></c:if>
 		        </div>
 	        </c:if>
         </div>
@@ -467,7 +439,7 @@
           <hr/>
           <form name="modalForm">
             <div><input type="radio" name="complaint" id="complaint1" value="광고,홍보,영리목적"/> 광고,홍보,영리목적</div>
-            <div><input type="radio" name="complaint" id="complaint2" value="욕설,비방,차별,혐오"/> 설,비방,차별,혐오</div>
+            <div><input type="radio" name="complaint" id="complaint2" value="욕설,비방,차별,혐오"/> 욕설,비방,차별,혐오</div>
             <div><input type="radio" name="complaint" id="complaint3" value="불법정보"/> 불법정보</div>
             <div><input type="radio" name="complaint" id="complaint4" value="음란,청소년유해"/> 음란,청소년유해</div>
             <div><input type="radio" name="complaint" id="complaint5" value="개인정보노출,유포,거래"/> 개인정보노출,유포,거래</div>

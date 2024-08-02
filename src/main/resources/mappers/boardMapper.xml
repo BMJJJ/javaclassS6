@@ -43,6 +43,16 @@
 		select * from board2 where ${search} like concat("%",#{searchString},"%") order by idx desc limit #{startIndexNo},#{pageSize};
 	</select>
 	
+	<select id="findBoardGood" resultType="com.spring.javaclassS6.vo.BoardGoodVO">
+  	SELECT * FROM boardgood WHERE boardIdx = #{boardIdx} AND midIdx = #{mid}
+  </select>
+    
+	<select id="isLikedMid" resultType="boolean">
+    SELECT COUNT(*) > 0
+    FROM boardgood
+    WHERE boardIdx = #{idx} AND midIdx = #{sMid}
+</select>
+	
 	<insert id="setBoardInput">
 	  insert into board2 values (default,#{vo.mid},#{vo.nickName},#{vo.title},#{vo.content},default,#{vo.hostIp},#{vo.openSw},default,default,default,#{vo.part});
 	</insert>
@@ -50,6 +60,10 @@
 	<insert id="setBoardReplyInput">
 	  insert into boardReply2 values (default,#{replyVO.boardIdx},#{replyVO.re_step},#{replyVO.re_order},#{replyVO.mid},#{replyVO.nickName},default,#{replyVO.hostIp},#{replyVO.content},#{replyVO.openSw});
 	</insert>
+	
+	<insert id="insertBoardGood" parameterType="com.spring.javaclassS6.vo.BoardGoodVO">
+  	INSERT INTO boardGood VALUES (default,#{vo.midIdx}, #{vo.boardIdx});
+  </insert>
 	
 	
 	<update id="setReadNumPlus">
@@ -64,6 +78,20 @@
 	  update boardReply2 set re_order = re_order + 1 where boardIdx = #{boardIdx} and re_order > #{re_order};
 	</update>
 	
+	<update id="incrementGoodCount">
+  	UPDATE board2 SET good = good + 1 WHERE idx = #{boardIdx};
+  </update>
+	
+	<update id="decrementGoodCount">
+   	UPDATE board2 SET good = good - 1 WHERE idx = #{boardIdx};
+  </update>
+  
+	<update id="processGoodCount">
+   	UPDATE board2 SET good = good + #{cnt} WHERE idx = #{boardIdx};
+  </update>
+  
+  
+	
 	<!--Delete  -->
 	
 	
@@ -75,5 +103,8 @@
 		delete from boardReply2 where idx = #{idx};
 	</delete>
 	
+	<delete id="deletePhotoGood">
+  	DELETE FROM boardgood WHERE idx = #{idx};
+  </delete>
 	
 </mapper>

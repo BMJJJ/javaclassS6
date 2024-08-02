@@ -147,6 +147,38 @@ public class MessageController {
 			model.addAttribute("msg", "파일이 업로드 실패.");
 			model.addAttribute("url", "/photoGallery/photoGalleryInput");
 		}
+		else if(msgFlag.equals("photoDeleteOk")) {
+			model.addAttribute("msg", "사진이 삭제 되었습니다.");
+			model.addAttribute("url", "/photoGallery/photoGalleryList");
+		}
+		else if(msgFlag.equals("photoDeleteNo")) {
+			model.addAttribute("msg", "사진 삭제 실패.");
+			model.addAttribute("url", "/photoGallery/photoGalleryList");
+		}
+		else if(msgFlag.equals("addressDeleteOk")) {
+			model.addAttribute("msg", "지점이 삭제 되었습니다.");
+			model.addAttribute("url", "/mapandweather/mapPlus");
+		}
+		else if(msgFlag.equals("addressDeleteNo")) {
+			model.addAttribute("msg", "지점 삭제 실패.");
+			model.addAttribute("url", "/mapandweather/mapPlus");
+		}
+		else if(msgFlag.equals("parkInputOk")) {
+			model.addAttribute("msg", "등록되었습니다.");
+			model.addAttribute("url", "/park/parkList");
+		}
+		else if(msgFlag.equals("parkInputNo")) {
+			model.addAttribute("msg", "등록 실패.");
+			model.addAttribute("url", "/park/parkList");
+		}
+		else if(msgFlag.equals("scheduleInputOk")) {
+			model.addAttribute("msg", "등록되었습니다.");
+			model.addAttribute("url", "/park/parkList");
+		}
+		else if(msgFlag.equals("scheduleInputNo")) {
+			model.addAttribute("msg", "등록 실패.");
+			model.addAttribute("url", "/park/parkList");
+		}
 		
 		return "include/message";
 	}

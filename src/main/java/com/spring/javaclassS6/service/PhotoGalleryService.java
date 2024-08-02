@@ -1,8 +1,11 @@
 package com.spring.javaclassS6.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.spring.javaclassS6.vo.BoardVO;
 import com.spring.javaclassS6.vo.PhotoGalleryVO;
+import com.spring.javaclassS6.vo.PhotoReplyVO;
 
 public interface PhotoGalleryService {
 
@@ -23,11 +26,28 @@ public interface PhotoGalleryService {
 	  
 	public ArrayList<PhotoGalleryVO> getPhotoGalleryReply(int photoIdx);
 
-	public boolean checkIfAlreadyLiked(int idx, String sMid);
+	public String toggleGood(int idx, String mid);
 
-	public boolean cancelGood(int idx, String sMid);
+	public boolean isLikedMid(int photoIdx, String sMid);
 
-	public boolean addGood(int idx, String sMid);
+	public PhotoReplyVO getPhotoParentReplyCheck(int photoIdx);
+
+	public int setPhotoReplyInput(PhotoReplyVO replyVO);
+
+	public void setReplyOrderUpdate(int photoIdx, int re_order);
+
+	public int getPhotoGalleryReplyCount(int photoIdx);
+
+	public PhotoGalleryVO getPhotoContent(int idx);
+
+	public void imgDelete(String content);
+
+	public int setPhotoDelete(int idx);
+
+	public int deletePhotoReply(int idx);
+
+	public List<PhotoGalleryVO> setPhotoGallerySingle(int startIndexNo, int pageSize);
+
 
 
 

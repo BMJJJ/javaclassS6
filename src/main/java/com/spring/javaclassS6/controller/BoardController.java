@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.javaclassS6.pagination.PageProcess;
+import com.spring.javaclassS6.service.AdminService;
 import com.spring.javaclassS6.service.BoardService;
+import com.spring.javaclassS6.vo.AdminVO;
 import com.spring.javaclassS6.vo.BoardReply2VO;
 import com.spring.javaclassS6.vo.BoardVO;
 import com.spring.javaclassS6.vo.PageVO;
@@ -26,8 +28,13 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	AdminService adminService;
+	
 	@Autowired
 	PageProcess pageProcess;
+	
 	
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public String boardListGet(Model model,
@@ -69,37 +76,39 @@ public class BoardController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/boardContent", method = RequestMethod.GET)
 	public String boardContentPost(int idx, Model model, HttpServletRequest request,
-			@RequestParam(name="pag", defaultValue = "1", required = false) int pag,
-			@RequestParam(name="pageSize", defaultValue = "10", required = false) int pageSize) {
-		// 조회수 증가하기
-		//boardService.setReadNumPlus(idx);
-		// 게시글 조회수 1씩 증가시키기(중복방지)
-		HttpSession session = request.getSession();
-		ArrayList<String> contentReadNum = (ArrayList<String>) session.getAttribute("sContentIdx");
-		if(contentReadNum == null) contentReadNum = new ArrayList<String>();
-		String imsiContentReadNum = "board" + idx;
-		if(!contentReadNum.contains(imsiContentReadNum)) {
-			boardService.setReadNumPlus(idx);
-			contentReadNum.add(imsiContentReadNum);
-		}
-		session.setAttribute("sContentIdx", contentReadNum);
-		
-		BoardVO vo = boardService.getBoardContent(idx);
-		model.addAttribute("vo", vo);
-		model.addAttribute("pag", pag);
-		model.addAttribute("pageSize", pageSize);
-		
-		// 이전글/다음글 가져오기
-		BoardVO preVo = boardService.getPreNextSearch(idx, "preVo");
-		BoardVO nextVo = boardService.getPreNextSearch(idx, "nextVo");
-		model.addAttribute("preVo", preVo);
-		model.addAttribute("nextVo", nextVo);
-		
-		//댓글(대댓글) 추가 입력처리
-		List<BoardReply2VO> replyVos = boardService.getBoardReply(idx);
-		model.addAttribute("replyVos" ,replyVos);
-		
-		return "board/boardContent";
+	        @RequestParam(name="pag", defaultValue = "1", required = false) int pag,
+	        @RequestParam(name="pageSize", defaultValue = "10", required = false) int pageSize) {
+	    HttpSession session = request.getSession();
+	    ArrayList<String> contentReadNum = (ArrayList<String>) session.getAttribute("sContentIdx");
+	    if(contentReadNum == null) contentReadNum = new ArrayList<String>();
+	    String imsiContentReadNum = "board" + idx;
+	    if(!contentReadNum.contains(imsiContentReadNum)) {
+	        boardService.setReadNumPlus(idx);
+	        contentReadNum.add(imsiContentReadNum);
+	    }
+	    session.setAttribute("sContentIdx", contentReadNum);
+	    
+	    BoardVO vo = boardService.getBoardContent(idx);
+	    model.addAttribute("vo", vo);
+	    model.addAttribute("pag", pag);
+	    model.addAttribute("pageSize", pageSize);
+	    
+	    // 이전글/다음글 가져오기
+	    BoardVO preVo = boardService.getPreNextSearch(idx, "preVo");
+	    BoardVO nextVo = boardService.getPreNextSearch(idx, "nextVo");
+	    model.addAttribute("preVo", preVo);
+	    model.addAttribute("nextVo", nextVo);
+	    
+	    //댓글(대댓글) 추가 입력처리
+	    List<BoardReply2VO> replyVos = boardService.getBoardReply(idx);
+	    model.addAttribute("replyVos" ,replyVos);
+	    
+	    // 현재 로그인한 사용자의 좋아요 여부 확인
+	    String sMid = (String) session.getAttribute("sMid");
+	        boolean isLiked = boardService.isLikedMid(idx, sMid);
+	        model.addAttribute("isLiked", isLiked);
+	    
+	    return "board/boardContent";
 	}
 	
 	@RequestMapping(value = "/boardUpdate", method = RequestMethod.GET)
@@ -232,16 +241,31 @@ public class BoardController {
     int res = boardService.deleteBoardReply(idx);
 
     return res + "";
-}
+	}
 	
-/*
- * @ResponseBody
- * 
- * @RequestMapping(value = "/boardGoodCheck", method = RequestMethod.POST){
- * public String boaradGoodCheckPost() {
- * 
- * }
- */
-	
+	@ResponseBody
+  @RequestMapping(value = "/boardGoodCheck", method = RequestMethod.POST)
+  public String boardGoodCheck(@RequestParam int idx, HttpSession session) {
+    String mid = (String) session.getAttribute("sMid");
+    
+    if (mid == null) {
+        return "0"; // 로그인되지 않은 경우
+    }
+    
+    try {
+        String result = boardService.toggleGood(idx, mid);
+        return result; // "1": 좋아요 추가, "2": 좋아요 취소, "0": 오류 발생
+    } catch (Exception e) {
+        return "0"; // 오류 발생
+    }
+	}
+	//board게시판 신고하기
+	@ResponseBody
+	@RequestMapping(value = "/boardComplaintInput", method = RequestMethod.POST)
+	public String boardComplaintInputPost(AdminVO vo) {
+		int res = adminService.setboardComplaintInput(vo);
+		adminService.setRboardComplaintInput(vo.getPartIdx());
+		return res + "";
+	}
 	
 }

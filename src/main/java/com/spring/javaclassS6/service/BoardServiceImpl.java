@@ -16,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.spring.javaclassS6.dao.BoardDAO;
+import com.spring.javaclassS6.vo.BoardGoodVO;
 import com.spring.javaclassS6.vo.BoardReply2VO;
 import com.spring.javaclassS6.vo.BoardVO;
 
@@ -39,12 +40,6 @@ public class BoardServiceImpl implements BoardService {
 	public BoardVO getBoardContent(int idx) {
 		return boardDAO.getBoardContent(idx);
 	}
-
-	/*
-	 * @Override public ArrayList<BoardVO> getBoardList(int startIndexNo, int
-	 * pageSize, String part) { return boardDAO.getBoardList(startIndexNo, pageSize,
-	 * part); }
-	 */
 
 	@Override
 	public void setReadNumPlus(int idx) {
@@ -136,6 +131,7 @@ public class BoardServiceImpl implements BoardService {
 	public void imgDelete(String content) {
 		//                0         1         2         3
 		//                01234567890123456789012345678901234567890
+		// <p><img alt="" src="/javaclassS/data/map/240626093722_5.jpg" style="height:433px; width:700px" /></p>
 		// <p><img alt="" src="/javaclassS/data/board/240626093722_5.jpg" style="height:433px; width:700px" /></p>
 		// <p><img alt="" src="/javaclassS/data/ckeditor/240626093722_5.jpg" style="height:433px; width:700px" /></p>
 		
@@ -208,5 +204,43 @@ public class BoardServiceImpl implements BoardService {
 	public int deleteBoardReply(int idx) {
 		return boardDAO.deleteBoardReply(idx);
 	}
-	
+
+	@Override
+	public String toggleGood(int boardIdx, String mid) {
+		BoardGoodVO vo = boardDAO.findBoardGood(boardIdx, mid);
+		System.out.println("vo :" + vo);
+    if (vo == null) {
+      // 좋아요가 없으면 추가
+    	vo = new BoardGoodVO();
+    	vo.setBoardIdx(boardIdx);
+    	vo.setMidIdx(mid);
+    	boardDAO.insertBoardGood(vo);
+    	System.out.println("+1");
+    	boardDAO.processGoodCount(boardIdx, 1);
+      return "1"; // 좋아요 추가
+  } else {
+      // 좋아요가 있으면 취소
+  	boardDAO.deletePhotoGood(vo.getIdx());
+  	boardDAO.processGoodCount(boardIdx, -1);
+  	System.out.println("-1");
+    return "2"; // 좋아요 취소
+  }
+}
+
+	@Override
+	public boolean isLikedMid(int idx, String sMid) {
+		return boardDAO.isLikedMid(idx, sMid);
+	}
+
+	@Override
+	public int setComplaint(int idx) {
+		return boardDAO.setComplaint(idx);
+	}
+
+	@Override
+	public int setRboardComplaintInput(int idx) {
+		return boardDAO.setRboardComplaintInput(idx);
+	}
+
+
 }

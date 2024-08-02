@@ -4,16 +4,14 @@ import lombok.Data;
 
 @Data
 public class PhotoReplyVO {
-//photoReply.sql
 	private int idx;
+	private int photoIdx;
+	private int re_step;
+	private int re_order;
 	private String mid;
-	private int replyIdx;
-	private String replyMid;
-	private String content;
-	private int replyPhotoIdx;
 	private String prDate;
+	private String content;
+	private String openSw;
 	
-	private int replyCnt;	// 댓글 개수
-	
-	
+	private String replyCnt;
 }

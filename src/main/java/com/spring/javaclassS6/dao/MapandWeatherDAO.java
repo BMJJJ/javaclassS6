@@ -10,8 +10,12 @@ public interface MapandWeatherDAO {
 
 	public KakaoAddressVO getKakaoAddressSearch(@Param("address") String address);
 
-	public void setKakaoAddressInput(@Param("vo") KakaoAddressVO vo);
+	public int setKakaoAddressInput(@Param("vo") KakaoAddressVO vo);
 
 	public List<KakaoAddressVO> getKakaoAddressList();
+
+	public KakaoAddressVO getAddressSearch(@Param("address") int address);
+
+	public int setaddressDelete(@Param("address") String address);
 
 }

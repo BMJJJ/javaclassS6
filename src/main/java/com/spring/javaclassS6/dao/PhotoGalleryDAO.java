@@ -1,10 +1,13 @@
 package com.spring.javaclassS6.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.spring.javaclassS6.vo.PhotoGalleryVO;
+import com.spring.javaclassS6.vo.PhotoGoodVO;
+import com.spring.javaclassS6.vo.PhotoReplyVO;
 
 public interface PhotoGalleryDAO {
 
@@ -28,10 +31,42 @@ public interface PhotoGalleryDAO {
 
 	public ArrayList<PhotoGalleryVO> getPhotoGalleryReplies(@Param("photoIdx") int photoIdx);
 
-	public boolean checkIfAlreadyLiked(@Param("idx") int idx,@Param("sMid") String sMid);
+	public PhotoGoodVO findPhotoGood(@Param("photoIdx") int photoIdx,@Param("mid") String mid);
 
-	public boolean cancelGood(@Param("idx") int idx,@Param("sMid") String sMid);
+	public void incrementGoodCount(@Param("photoIdx") int photoIdx);
 
-	public boolean addGood(@Param("idx")int idx,@Param("sMid") String sMid);
+	public void deletePhotoGood(@Param("idx") int idx);
+
+	public void decrementGoodCount(@Param("photoIdx") int photoIdx);
+
+	public void insertPhotoGood(@Param("vo") PhotoGoodVO vo);
+
+	public boolean isLikedMid(@Param("photoIdx") int photoIdx,@Param("mid") String mid);
+
+	public PhotoReplyVO getPhotoParentReplyCheck(@Param("photoIdx") int photoIdx);
+
+	public int setPhotoReplyInput(@Param("replyVO") PhotoReplyVO replyVO);
+
+	public void setReplyOrderUpdate(@Param("photoIdx") int photoIdx,@Param("re_order") int re_order);
+
+	public int getPhotoGalleryReplyCount(@Param("photoIdx") int photoIdx);
+
+	public PhotoGalleryVO getPhotoContent(@Param("idx") int idx);
+
+	public int setPhotoDelete(@Param("idx") int idx);
+
+	public int setPhotoGalleryDelete(@Param("idx") int idx);
+
+	public PhotoGalleryVO getPhotoIdxSearch(@Param("idx") int idx);
+
+	public int deletePhotoReply(@Param("idx") int idx);
+
+	//public List<PhotoGalleryVO> setPhotoGallerySingle(@Param("startIndexNo") int startIndexNo,@Param("pageSize") int pageSize);
+
+	public int[] getPhotoGalleryIdxList(@Param("startIndexNo") int startIndexNo, @Param("pageSize") int pageSize);
+	
+	public PhotoGalleryVO setPhotoGallerySingle(@Param("idx") int idx);
+
+
 
 }

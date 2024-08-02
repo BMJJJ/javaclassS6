@@ -7,51 +7,65 @@
   <meta charset="UTF-8">
   <title>photoGalleryInput.jsp</title>
   <script src="${ctp}/ckeditor/ckeditor.js"></script>
-  <jsp:include page="/WEB-INF/views/include/bs4.jsp" />
+  <%@ include file = "/WEB-INF/views/include/bs4.jsp" %>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 30px;
+      margin-top: 50px;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    .form-control, .input-group-text {
+      border-radius: 0;
+    }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .btn-custom {
+      background-color: #2c3e50;
+      color: #fff;
+      border: none;
+    }
+    .btn-custom:hover {
+      background-color: #34495e;
+      color: #fff;
+    }
+    .btn-warning {
+      background-color: #f39c12;
+      border: none;
+      color: #fff;
+    }
+    .btn-warning:hover {
+      background-color: #e67e22;
+      color: #fff;
+    }
+  </style>
   <script>
     'use strict';
-    
-   /*  function fCheck() {
-    	let fName = document.getElementById("file").value;
-    	let ext = "";
-    	let fileSize = 0;
-    	let maxSize = 1024 * 1024 * 20;	// 기본 단위 : Byte,   1024 * 1024 * 20 = 20MByte 허용
-    	
-    	if(fName.trim() == "") {
-    		alert("업로드할 파일을 선택하세요");
-    		return false;
-    	}
-    	
-    	let fileLength = document.getElementById("file").files.length;	// 선택한 파일의 갯수
-    	
-    	for(let i=0; i<fileLength; i++) {
-    		fName = document.getElementById("file").files[i].name;		// 선택된 1개의 파일이름가져오기
-    		ext = fName.substring(fName.lastIndexOf(".")+1).toLowerCase();
-	    	fileSize = document.getElementById("file").files[i].size;
-	    	if(ext != 'jpg' && ext != 'gif' && ext != 'png') {
-	    		alert("업로드 가능한 파일은 'jpg/gif/png'만 가능합니다.");
-	    	}
-    	}
-    	
-    	if(fileSize > maxSize) {
-    		alert("업로드 파일의 최대용량은 20MByte입니다.");
-    	}
-    	else {
-    		myform.submit();
-    	}
-    } */
   </script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/nav.jsp" />
-<p><br/></p>
 <div class="container">
-  <h2>사진파일 업로드</h2>
-  <div>(Shift/Ctrl키를 사용하여 여러장의 사진을 업로드할수 있습니다.)</div>
+  <h2 class="text-center mb-4">사진파일 업로드</h2>
+  <p class="text-muted text-center mb-4">(Shift/Ctrl키를 사용하여 여러장의 사진을 업로드할수 있습니다.)</p>
   <hr/>
   <form name="myform" method="post" enctype="multipart/form-data">
-    <div class="input-group mb-2">
-      <div class="input-group-prepend input-group-text">분 류</div>
+    <div class="form-group">
+      <label for="part">분류</label>
       <select name="part" id="part" class="form-control">
         <option value="풍경" selected>풍경</option>
         <option value="인물">인물</option>
@@ -61,29 +75,41 @@
         <option value="기타">기타</option>
       </select>
     </div>
-    <div class="input-group mb-2">
-      <div class="input-group-prepend input-group-text">제 목</div>
+    <div class="form-group">
+      <label for="title">제목</label>
       <input type="text" name="title" id="title" class="form-control"/>
     </div>
-    <div class="mb-2">
+    <div class="form-group">
+      <label for="CKEDITOR">내용</label>
     	<textarea name="content" id="CKEDITOR" rows="6" class="form-control" required></textarea>
         <script>
-          CKEDITOR.replace("content",{
-        	  height:480,
-        	  filebrowserUploadUrl:"${ctp}/imageUpload",
-        	  uploadUrl : "${ctp}/imageUpload"
+          CKEDITOR.replace("content", {
+            height: 480,
+            filebrowserUploadUrl: "${ctp}/imageUpload",
+            uploadUrl: "${ctp}/imageUpload",
+            toolbar: [
+              { name: 'insert', items: ['Image'] }
+            ], 
+            removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor',
+            extraAllowedContent: 'img[alt,border,width,height,align,vspace,hspace,!src];'
           });
         </script>
     </div>
-    <div class="row">
-    	<div class="col"><input type="submit" value="이야기 공유하기" class="btn btn-outline-success mr-2"/></div>
-    	<div class="col text-right"><input type="button" value="돌아가기" onclick="location.href='photoGalleryList';" class="btn btn-warning"/></div>
+    <div class="form-group">
+    	<label for="expl">설명</label>
+    	<input type="text" name="expl" id="expl" class="form-control"/>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-custom">이야기 공유하기</button>
+      </div>
+      <div class="col-md-6">
+        <button type="button" onclick="location.href='photoGalleryList';" class="btn btn-warning">돌아가기</button>
+      </div>
     </div>
     <input type="hidden" name="mid" value="${sMid}" />
     <input type="hidden" name="nickName" value="${sNickName}" />
   </form>
-  <hr/>
 </div>
-<p><br/></p>
 </body>
 </html>
