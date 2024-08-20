@@ -20,7 +20,6 @@
   <img src="https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=Selenium&logoColor=white">
    <img src="https://img.shields.io/badge/CKEditor4-E34F26?style=for-the-badge&logo=CKEditor4&logoColor=white">
 </div>
-* HTML/CSS/JavaScript
 * 그외 : Kakao Maps API / SweetAlert2 / CKEditor4 / 날씨 API / 구글 CHART
 
 ## 구현 기능
