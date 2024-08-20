@@ -8,8 +8,12 @@
 
 ## 사용 기술 스택
 
-* Java
-* Spring Framework
+자바
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white">
+
+스프링
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
+
 * MySQL
 * HTML/CSS/JavaScript
 * 그외 : Kakao Maps API / SweetAlert2 / CKEditor4 / 날씨 API / 구글 CHART
